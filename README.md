@@ -1,2 +1,2 @@
-# enxame-particulas-IA
+# enxame-particulas-PSO-IA
 Destinado ao trabalho da disciplina de IA com o algoritmo otimização por enxame de partículas utilizando a função de Schaffer
