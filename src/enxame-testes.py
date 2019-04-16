@@ -64,7 +64,7 @@ def geraAleatorio(dominioX1, dominioX2):
 
 def verificaParticula(dominio, particula):
     verify = 1
-    if (particula[0] > dominio[0] or particula[1] > dominio[1]):
+    if (particula[0] > dominio[0] or particula[1] > dominio[1]) :
         verify = 0
     return verify
 
@@ -73,9 +73,9 @@ def verificaParticula(dominio, particula):
 
 
 def main(args):
-    dominio1 = [-100,100]
+    dominio1 = [-100, 100]
     dominio2 = [-100, 100]
-    v1v2    = [-15,15]
+    v1v2    = [-15, 15]
     gbest = []
     n = 20
     media = 0
