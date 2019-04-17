@@ -5,7 +5,7 @@
     a classe Particula
 """
 
-from src.models.Particula import Particula
+from models.Particula import Particula
 
 # Lógica que recebe o número de partículas e as cria de forma aleatória
 def criarParticulas(numParticulas: int) -> list :
