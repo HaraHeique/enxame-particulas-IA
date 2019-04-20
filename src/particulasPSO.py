@@ -22,11 +22,10 @@ def criarParticulas(numParticulas: int) -> list :
 
 # Retorna uma lista de gBests a partir das particulas e a quantidade de iterações passadas como argumento
 def getGbestsPorIteracao(particulas: list, numIteracoes: int) -> list :
-    contadorIteracoes: int = -1
+    contadorIteracoes: int = 0
     lstGbests: list = []
 
     while (contadorIteracoes < numIteracoes) :
-        contadorIteracoes += 1
         lstPbests: list = []
 
         # Iterando sobre cada partícula da população atualizando sua aptidão pelo cálcula de schaffer e o seu pBest
@@ -51,7 +50,9 @@ def getGbestsPorIteracao(particulas: list, numIteracoes: int) -> list :
             particula: Particula = particulas[i]
             particula.atualizarVelocidade(gBestCorrente)
             particula.atualizarPosicao()
-    
+
+        contadorIteracoes += 1
+        
     return lstGbests
 
 # Pega a partícula com melhor pBest, ou seja, o gBest

@@ -20,6 +20,14 @@ def qntIteracoesPorParticula() -> int :
         if (__tryParseIntPositive(numInteracoesInput)) :
             return int(numInteracoesInput)
 
+# Determina o número de execuções do algoritmo
+def qntExecucoesAlgoritmo() -> int :
+    while (True) :
+        numExecucoes: str = input("Insira o número de execuções do algoritmo: ")
+
+        if (__tryParseIntPositive(numExecucoes)) :
+            return int(numExecucoes)
+
 # Checa se a string passa é possível de converter para um inteiro positivo
 def __tryParseIntPositive(strInt: str) -> bool :
     if (not strInt.isdigit() or int(strInt) < 0) :
