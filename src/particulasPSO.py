@@ -68,6 +68,26 @@ def printGBests(lstGBests: list) -> None :
     print('\n')
     return
 
+# Lógica que recebe uma lista de Gbest e retorna a média.
+def calculaMediaGbest(lstGBests: list) -> list:
+    media =0
+    count = 0
+    for dic in lstGBests :
+        media = media + dic["aptidao"]
+        count = count+1
+
+    return media/count
+
+# Lógica do Desvio padrão calculado em cima do Gbest.
+def calculaDesvioPadrao(lstGbest: list , numInteracoes : int) ->list :
+    mediaArtimetica = calculaMediaGbest(lstGbest)
+    somatorio = 0
+    for i in lstGbest:
+        somatorio += (i["aptidao"] - mediaArtimetica)**2
+    desvioPadrao = (somatorio/numInteracoes) **0.5
+
+    return desvioPadrao
+
 
 # Para testes do módulo
 if __name__ == '__main__' :

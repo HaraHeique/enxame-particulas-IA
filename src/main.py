@@ -17,6 +17,8 @@ def main(NUM_EXECUCOES: int, NUMERO_ITERACOES: int, NUMERO_PARTICULAS: int) -> i
 
     # Escrevendo as informações no arquivo de saída
     filesHandle.writeGBestData(lstGBests, "execucao_{0}.txt".format(NUM_EXECUCOES), NUMERO_ITERACOES)
+    # Melhor Gbest.
+    #filesHandle.getMelhorGbest(lstGBests, NUMERO_ITERACOES)
 
     return 0
 

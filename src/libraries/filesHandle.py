@@ -4,8 +4,9 @@
     Lida com a lógica de leitura e escrita de arquivos especificamente para o
     algoritmo PSO
 """
-
+from src import particulasPSO
 import os
+
 
 # Variável global que armazena o local/diretório onde é guardado os arquivos
 storeFilesPath: str = os.path.dirname(os.path.abspath(__file__)) + "/../files"
@@ -29,3 +30,35 @@ def writeGBestData(lstGbests: list, filename: str, numero_iteracoes: int) -> Non
                 iteracao += 1
     except IOError :
         raise Exception("Não foi possível abrir o arquivo")
+
+
+#Lógica para pegar o melhor Gbest.
+def getMelhorGbest(lstGbest: list , nInteracoes: int) -> list:
+    menor = 10000
+    count = 0
+
+    #Percorre a lista de gbests e pega o melhor.
+    for dic in lstGbest:
+        if(dic["aptidao"] < menor):
+            menor = dic["aptidao"]
+            iTxt = count #Armazena em qual arquivo ele foi encontrado.
+        count +=1
+    #
+    nomeArq = 'execucao_'+ str(iTxt)+'.txt'
+    path = "./files/"+str(nInteracoes)+"_iteracoes/"
+
+    #Percorre o arquivo aberto até o final.
+    # Escreve no final a média e o desvio padrão.
+    with (open(path+nomeArq,'a'))as arq:
+        arq.write("Média:" + str(particulasPSO.calculaMediaGbest(lstGbest)) + "\n")
+        arq.write("Desvio Padrão:" + str(particulasPSO.calculaDesvioPadrao(lstGbest, len(lstGbest))) + "\n")
+        arq.write('\n')
+        arq.close()
+
+
+    #Renomeia o arquivo para o melhor de todos.
+    novoNome = "execucao_"+str(iTxt)+"_melhor_gbest.txt"
+    for nomeArq in os.listdir(path):
+        os.rename(path+nomeArq,path+novoNome)
+        print("Arquivo modificado.")
+    return
