@@ -40,7 +40,7 @@ def getGbestsPorIteracao(particulas: list, numIteracoes: int) -> list :
             lstPbests.append(particula.pbest)
 
         # Pega o melhor pBest de todos os pBests e faz uma shallow copy da sua instância atual, para ficar com o seu histórico de informações
-        gBestCorrente: dict = __getGBest(lstPbests)
+        gBestCorrente: dict = getGBest(lstPbests)
 
         # Adiciona na lista de gBests a cópia do obj do melhor pBest referente a iteração corrente
         lstGbests.append(gBestCorrente)
@@ -56,37 +56,32 @@ def getGbestsPorIteracao(particulas: list, numIteracoes: int) -> list :
     return lstGbests
 
 # Pega a partícula com melhor pBest, ou seja, o gBest
-def __getGBest(pBests: list) -> dict :
+def getGBest(pBests: list) -> dict :
     return min(pBests, key=lambda x:x['aptidao'])
 
 # Printa as partículas gBest de forma organizada e alinhada
 def printGBests(lstGBests: list) -> None :
     print('\n')
     for dic in lstGBests :
-        espacamento = " " * (50 - len(str(dic["posicao"])))
-        print("Posição: {0}{1}Aptidão: {2}".format(dic["posicao"], espacamento, dic["aptidao"]))
+        espacamento = " " * (50 - len(str(dic['posicao'])))
+        print("Posição: {0}{1}Aptidão: {2}".format(dic['posicao'], espacamento, dic['aptidao']))
     print('\n')
     return
 
 # Lógica que recebe uma lista de Gbest e retorna a média.
-def calculaMediaGbest(lstGBests: list) -> list:
-    media =0
-    count = 0
-    for dic in lstGBests :
-        media = media + dic["aptidao"]
-        count = count+1
+def calculaMediaGbest(lstGbests: list) -> float:
+    somatorio: float = sum(item['aptidao'] for item in lstGbests)
+    numElementos: int = len(lstGbests)
 
-    return media/count
+    return somatorio / numElementos
 
 # Lógica do Desvio padrão calculado em cima do Gbest.
-def calculaDesvioPadrao(lstGbest: list , numInteracoes : int) ->list :
-    mediaArtimetica = calculaMediaGbest(lstGbest)
-    somatorio = 0
-    for i in lstGbest:
-        somatorio += (i["aptidao"] - mediaArtimetica)**2
-    desvioPadrao = (somatorio/numInteracoes) **0.5
+def calculaDesvioPadraoGbest(lstGbests: list, mediaAritmetica: float = None) -> float :
+    mediaAritmetica = calculaMediaGbest(lstGbests) if (mediaAritmetica == None) else mediaAritmetica
+    somatorio: float = sum((item['aptidao'] - mediaAritmetica)**2 for item in lstGbests)
+    numElementos: int = len(lstGbests)
 
-    return desvioPadrao
+    return (somatorio / numElementos)**0.5
 
 
 # Para testes do módulo
