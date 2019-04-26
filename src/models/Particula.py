@@ -35,17 +35,17 @@ class Particula :
         return self._aptidao
 
     # Atualiza a velocidade da atual partícula.
-    def atualizarVelocidade(self, gbest: dict) :
+    def atualizarVelocidade(self, gbest: dict, w: float = None) :
         Q1: float = 0.5            # constante q1.
         Q2: float = 0.8            # constante q2.
         x1: float = uniform(0,1) # rand¹ da formula.
         x2: float = uniform(0,1) # rand² da formula.
-
+        
+        w = 1.0 if (w == None) else w
+		
         # Atualiza as velocidades
-        # v1: float = self._velocidade[0] + Q1 * x1 * (self._pbest._posicao[0] - self._posicao[0]) +  Q2 * uniform(0, gbest._posicao[0] - self._posicao[0])
-        # v2: float = self._velocidade[1] + Q1 * x1 * (self._pbest._posicao[1] - self._posicao[1]) +   Q2 * uniform(0, gbest._posicao[1] - self._posicao[1])
-        v1: float = self._velocidade[0] + Q1 * x1 * (self._pbest["posicao"][0] - self._posicao[0]) + Q2 * x2 * (gbest["posicao"][0] - self._posicao[0])
-        v2: float = self._velocidade[1] + Q1 * x1 * (self._pbest["posicao"][1] - self._posicao[1]) + Q2 * x2 * (gbest["posicao"][1] - self._posicao[1])
+        v1: float = w * self._velocidade[0] + Q1 * x1 * (self._pbest["posicao"][0] - self._posicao[0]) + Q2 * x2 * (gbest["posicao"][0] - self._posicao[0])
+        v2: float = w * self._velocidade[1] + Q1 * x1 * (self._pbest["posicao"][1] - self._posicao[1]) + Q2 * x2 * (gbest["posicao"][1] - self._posicao[1])
         
         # Atualiza a velocidade caso ela passa do limite implicado no domínio
         self._velocidade[0] = self.__atualizaVelocidadeNoLimite(v1)
@@ -128,4 +128,3 @@ class Particula :
             return self._dominioX2[1]
         
         return valorPos
-        

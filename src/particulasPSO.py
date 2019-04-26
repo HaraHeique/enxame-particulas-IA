@@ -44,13 +44,16 @@ def getGbestsPorIteracao(particulas: list, numIteracoes: int) -> list :
 
         # Adiciona na lista de gBests a cópia do obj do melhor pBest referente a iteração corrente
         lstGbests.append(gBestCorrente)
-
+        
+        # Cálculo de ponderação da velocidade por iteração
+        w: float = __calculoReducaoLinearPonderacaoInercia(contadorIteracoes+1, numIteracoes)
+		
         # Iterando novamente sobre os indivíduos da população, porém atualizando velocidade e posição de acordo com o gBest encontrado
         for i in range(len(particulas)) :
             particula: Particula = particulas[i]
-            particula.atualizarVelocidade(gBestCorrente)
+            particula.atualizarVelocidade(gBestCorrente, w)
             particula.atualizarPosicao()
-
+			
         contadorIteracoes += 1
         
     return lstGbests
@@ -83,7 +86,15 @@ def calculaDesvioPadraoGbest(lstGbests: list, mediaAritmetica: float = None) -> 
 
     return (somatorio / numElementos)**0.5
 
-
+# Calcula a a ponderação para cada iteração no cálculo da velocidade
+def __calculoReducaoLinearPonderacaoInercia(iteracaoCorrente: int, iteracaoMax: int) :
+	wmax: float = 0.9
+	wmin: float = 0.4
+	w: float = wmax - iteracaoCorrente * ((wmax - wmin)/iteracaoMax)
+	
+	return w 
+	
+	
 # Para testes do módulo
 if __name__ == '__main__' :
     particulas: list = criarParticulas(20)
